@@ -1,0 +1,9 @@
+{
+    "version": "1.0.0",
+    "name": "angular-authentication",
+    "private": true,
+    "devDependencies": {
+        "@types/angular": "1.6.24",
+        "@types/bootstrap": "3.3.34"
+    }
+}
