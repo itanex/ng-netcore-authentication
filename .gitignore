@@ -1,0 +1,14 @@
+# Third Party Libraries
+**/node_modules
+**/wwwroot/lib
+
+# Compile/Transpile Artifacts
+*.js
+*.js.map
+*.min.js
+**/[Bb]in
+**/[Oo]bj
+
+# User specific files
+.vs
+*.user
