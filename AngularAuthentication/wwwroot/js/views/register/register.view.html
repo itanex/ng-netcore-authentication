@@ -1,0 +1,63 @@
+﻿<h1>Register Page</h1>
+
+<form class="form-horizontal" ng-submit="vm.registerUser()" name="registrationForm" novalidate>
+    <h4>Create a new account.</h4>
+    <hr />
+    <div class="form-group">
+        <label for="regemail" class="col-md-2 control-label">Email</label>
+        <div class="col-md-10">
+            <input id="regemail" name="email" class="form-control" type="email" ng-model="vm.formData.email" ng-required="true" />
+            <ul>
+                <li class="text-danger"
+                      ng-show="registrationForm.email.$touched && registrationForm.email.$error.required">
+                    An email is required
+                </li>
+                <li class="text-danger"
+                      ng-show="registrationForm.email.$invalid && !registrationForm.email.$pristine">
+                    The email provided is not a valid email
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="regpassword" class="col-md-2 control-label">Password</label>
+        <div class="col-md-10">
+            <input id="regpassword" name="regpassword" class="form-control" type="password" 
+                   ng-model="vm.formData.password" 
+                   ng-required="true" 
+                   ng-minlength="8"
+                   ng-pattern="vm.pattern" />
+            <ul>
+                <li class="text-danger"
+                      ng-show="registrationForm.regpassword.$touched && registrationForm.regpassword.$error.required">
+                    A password is required
+                </li>
+                <li class="text-danger"
+                      ng-show="registrationForm.regpassword.$error.minlength">
+                    Password must be at least 8 characters long.
+                </li>
+                <li class="text-danger"
+                      ng-show="registrationForm.password.$error.pattern">
+                    Password needs at least one each of the following: Uppercase Letter, Lowercase Letter, Number
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="regconfirmpassword" class="col-md-2 control-label">Confirm Password</label>
+        <div class="col-md-10">
+            <input id="regconfirmpassword" name="confirmPassword" class="form-control" type="password" ng-model="vm.formData.confirmPassword" ng-required="true" />
+            <ul>
+                <li class="text-danger"
+                      ng-show="registrationForm.confirmPassword.$touched && registrationForm.confirmPassword.$error.required">
+                    Need to confirm your password
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Register</button>
+        </div>
+    </div>
+</form>

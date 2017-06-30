@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using AngularAuthentication.Models;
 using AngularAuthentication.Models.ManageViewModels;
-using AngularAuthentication.Services;
 
 namespace AngularAuthentication.Controllers
 {
@@ -18,24 +17,24 @@ namespace AngularAuthentication.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly string _externalCookieScheme;
-        private readonly IEmailSender _emailSender;
-        private readonly ISmsSender _smsSender;
+        //private readonly string _externalCookieScheme;
+        //private readonly IEmailSender _emailSender;
+        //private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
 
         public ManageController(
           UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
-          IOptions<IdentityCookieOptions> identityCookieOptions,
-          IEmailSender emailSender,
-          ISmsSender smsSender,
+          //IOptions<IdentityCookieOptions> identityCookieOptions,
+          //IEmailSender emailSender,
+          //ISmsSender smsSender,
           ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
-            _emailSender = emailSender;
-            _smsSender = smsSender;
+            //_externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
+            //_emailSender = emailSender;
+            //_smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
         }
 
@@ -113,7 +112,7 @@ namespace AngularAuthentication.Controllers
                 return View("Error");
             }
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.PhoneNumber);
-            await _smsSender.SendSmsAsync(model.PhoneNumber, "Your security code is: " + code);
+            //await _smsSender.SendSmsAsync(model.PhoneNumber, "Your security code is: " + code);
             return RedirectToAction(nameof(VerifyPhoneNumber), new { PhoneNumber = model.PhoneNumber });
         }
 
@@ -300,20 +299,20 @@ namespace AngularAuthentication.Controllers
             });
         }
 
-        //
-        // POST: /Manage/LinkLogin
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LinkLogin(string provider)
-        {
-            // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
+        ////
+        //// POST: /Manage/LinkLogin
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> LinkLogin(string provider)
+        //{
+        //    // Clear the existing external cookie to ensure a clean login process
+        //    await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
 
-            // Request a redirect to the external login provider to link a login for the current user
-            var redirectUrl = Url.Action(nameof(LinkLoginCallback), "Manage");
-            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl, _userManager.GetUserId(User));
-            return Challenge(properties, provider);
-        }
+        //    // Request a redirect to the external login provider to link a login for the current user
+        //    var redirectUrl = Url.Action(nameof(LinkLoginCallback), "Manage");
+        //    var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl, _userManager.GetUserId(User));
+        //    return Challenge(properties, provider);
+        //}
 
         //
         // GET: /Manage/LinkLoginCallback
@@ -336,7 +335,7 @@ namespace AngularAuthentication.Controllers
             {
                 message = ManageMessageId.AddLoginSuccess;
                 // Clear the existing external cookie to ensure a clean login process
-                await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
+                //await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
             }
             return RedirectToAction(nameof(ManageLogins), new { Message = message });
         }

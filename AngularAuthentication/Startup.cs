@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using AngularAuthentication.Data;
 using AngularAuthentication.Models;
-using AngularAuthentication.Services;
 
 namespace AngularAuthentication
 {
@@ -50,8 +49,6 @@ namespace AngularAuthentication
             services.AddMvc();
 
             // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +61,6 @@ namespace AngularAuthentication
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                app.UseBrowserLink();
             }
             else
             {
@@ -75,13 +71,16 @@ namespace AngularAuthentication
 
             app.UseIdentity();
 
-            // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "CatchAll",
+                    template: "{*url}",
+                    defaults: new { controller = "Home", action = "Index" });
             });
         }
     }

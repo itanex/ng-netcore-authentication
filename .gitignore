@@ -6,6 +6,7 @@
 *.js
 *.js.map
 *.min.js
+*.min.css
 **/[Bb]in
 **/[Oo]bj
 

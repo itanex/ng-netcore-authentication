@@ -1,9 +1,12 @@
 {
-    "version": "1.0.0",
-    "name": "angular-authentication",
-    "private": true,
-    "devDependencies": {
-        "@types/angular": "1.6.24",
-        "@types/bootstrap": "3.3.34"
-    }
+  "version": "1.0.0",
+  "name": "angular-authentication",
+  "private": true,
+  "devDependencies": {
+    "@types/angular": "^1.6.24",
+    "@types/angular-ui-bootstrap": "^0.13.43",
+    "@types/angular-ui-router": "^1.1.37",
+    "@types/angular-resource": "1.5.9",
+    "@types/bootstrap": "3.3.34"
+  }
 }
